@@ -22,10 +22,17 @@ const DINING_OPTION_IDS = {
   terrabyte: 18,
 };
 
-function localDateString(date) {
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${date.getFullYear()}-${month}-${day}`;
+// The next DAYS_AHEAD dates in Champaign ("2026-11-09", …), whatever time zone this runs in.
+// GitHub's servers use UTC, which is already tomorrow during Champaign evenings.
+function champaignDates() {
+  const today = Object.fromEntries(
+    new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric" })
+      .formatToParts(new Date())
+      .map((part) => [part.type, Number(part.value)]),
+  );
+  return Array.from({ length: DAYS_AHEAD }, (_, offset) =>
+    new Date(Date.UTC(today.year, today.month - 1, today.day + offset)).toISOString().slice(0, 10),
+  );
 }
 
 // Every tag Housing used as of 2026-11-09. The diet filters in src/diets.ts match some of these
@@ -72,10 +79,7 @@ async function main() {
   }
 
   const unknown = new Set();
-  const today = new Date();
-  for (let offset = 0; offset < DAYS_AHEAD; offset++) {
-    const day = new Date(today.getFullYear(), today.getMonth(), today.getDate() + offset);
-    const date = localDateString(day);
+  for (const date of champaignDates()) {
     const menus = {};
     for (const [placeId, optionId] of Object.entries(DINING_OPTION_IDS)) {
       menus[placeId] = await fetchMenu(optionId, date);
