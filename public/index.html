@@ -12,8 +12,8 @@
     <meta name="apple-mobile-web-app-title" content="Eat Now" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Eat Now</title>
-    <script type="module" crossorigin src="/eat-now/assets/index-nGreOfbz.js"></script>
-    <link rel="stylesheet" crossorigin href="/eat-now/assets/index-BNT8_d13.css">
+    <script type="module" crossorigin src="/eat-now/assets/index-B713HXgy.js"></script>
+    <link rel="stylesheet" crossorigin href="/eat-now/assets/index-BqHSDS9V.css">
   </head>
   <body>
     <header class="app-header">
@@ -36,14 +36,35 @@
         </div>
       </div>
       <p id="city-hint" class="budget-note is-error" role="status"></p>
+      <div id="home-hint" class="offline-banner home-hint" hidden>
+        <span>Tip: tap <strong>Share</strong> (the square with an arrow), then <strong>Add to Home Screen</strong>, to open Eat Now like an app.</span>
+        <button id="home-hint-close" type="button" class="link-button">Got it</button>
+      </div>
+      <p id="offline-banner" class="offline-banner" role="status" hidden>
+        You're offline. Places, menus, and map areas you've opened before still work; new cities and
+        street-by-street directions need a connection.
+      </p>
       <nav class="view-tabs" role="tablist" aria-label="View">
         <button type="button" role="tab" id="tab-eat" class="view-tab" aria-controls="eat-view">Eat now</button>
         <button type="button" role="tab" id="tab-order" class="view-tab" aria-controls="order-view">Order</button>
         <button type="button" role="tab" id="tab-play" class="view-tab" aria-controls="play-view">Play</button>
       </nav>
       <p id="location-status" class="location-status" role="status">Finding your location…</p>
+      <section id="hungry" class="hungry" aria-label="Pick a place for me">
+        <button id="hungry-button" type="button" class="primary-button hungry-button">I'm hungry: pick a place for me</button>
+        <p id="hungry-text" class="hungry-text" role="status"></p>
+        <div id="hungry-actions" class="hungry-actions" hidden>
+          <button id="hungry-open" type="button" class="primary-button">Open it</button>
+          <button id="hungry-another" type="button" class="link-button">Pick another</button>
+        </div>
+      </section>
     </header>
     <main>
+      <section id="welcome" class="welcome" aria-labelledby="welcome-title" hidden>
+        <h2 id="welcome-title">Welcome to Eat Now</h2>
+        <ul id="welcome-tips"></ul>
+        <button id="welcome-close" type="button" class="primary-button">Got it</button>
+      </section>
       <section class="filters" id="filters" aria-label="Filters">
         <div class="filter-group">
           <label class="filter-label" for="search-input">Search</label>
@@ -60,10 +81,26 @@
           <span class="filter-label" id="genre-label">Food type</span>
           <div id="genre-filters" class="chip-row" role="group" aria-labelledby="genre-label"></div>
         </div>
+        <div class="filter-group" id="walk-group">
+          <span class="filter-label" id="walk-label">Walking time</span>
+          <div id="walk-filters" class="chip-row" role="group" aria-labelledby="walk-label"></div>
+          <p id="walk-note" class="budget-note" role="status"></p>
+        </div>
         <div class="filter-group">
           <span class="filter-label" id="sort-label">Sort</span>
           <div id="sort-filters" class="chip-row" role="group" aria-labelledby="sort-label"></div>
           <p id="sort-note" class="budget-note" role="status"></p>
+        </div>
+        <button id="more-filters-toggle" type="button" class="link-button more-filters-toggle" aria-expanded="false" aria-controls="more-filters">More filters ▾</button>
+        <p id="more-filters-summary" class="budget-note"></p>
+        <div id="more-filters" class="more-filters" hidden>
+        <div class="filter-group">
+          <label class="filter-label" for="open-at-input">Open at</label>
+          <div class="budget-row">
+            <input id="open-at-input" class="budget-input" type="time" aria-describedby="open-at-note" />
+            <button id="open-at-clear" type="button" class="link-button" hidden>Now</button>
+          </div>
+          <p id="open-at-note" class="budget-note" role="status"></p>
         </div>
         <div class="filter-group" id="budget-group">
           <label class="filter-label" for="budget-input">Budget per meal</label>
@@ -78,10 +115,19 @@
           <span class="filter-label" id="diet-label">Diet <small>(dining hall menus)</small></span>
           <div id="diet-filters" class="chip-row" role="group" aria-labelledby="diet-label"></div>
         </div>
+        </div>
       </section>
       <section id="eat-view" role="tabpanel" aria-labelledby="tab-eat">
         <section id="directions-panel" aria-label="Directions" hidden></section>
+        <section id="favorites-today" class="favorites-today" aria-labelledby="favorites-today-title" hidden></section>
+        <section id="dish-results" class="favorites-today" aria-labelledby="dish-results-title" hidden></section>
         <div id="map" class="map" aria-label="Map of places to eat"></div>
+        <ul class="map-legend" aria-label="What the pins mean">
+          <li><span class="legend-dot is-open" aria-hidden="true"></span>Open</li>
+          <li><span class="legend-dot is-closed" aria-hidden="true"></span>Closed</li>
+          <li><span class="legend-dot is-unknown" aria-hidden="true"></span>Hours unknown</li>
+          <li><span class="legend-dot is-you" aria-hidden="true"></span>You</li>
+        </ul>
         <ul id="place-list" class="place-list" aria-label="Places to eat, closest first"></ul>
         <button type="button" id="show-more" class="link-button show-more" hidden>Show more places</button>
       </section>
@@ -100,6 +146,7 @@
             <h2>Arcade</h2>
             <p>Something to do while you wait for your food.</p>
           </div>
+          <section id="daily-challenge" class="daily-challenge" aria-labelledby="daily-title"></section>
           <ul id="game-cards" class="game-cards" aria-label="Games"></ul>
           <section class="badges" aria-labelledby="badges-heading">
             <h3 id="badges-heading">Badges <span id="badge-count" class="badge-count"></span></h3>
@@ -118,6 +165,7 @@
             <div id="memory-board" class="memory-board" hidden></div>
             <div id="order-board" class="order-board" hidden></div>
             <div id="recipe-board" class="recipe-board" hidden></div>
+            <div id="trivia-board" class="trivia-board" hidden></div>
             <div id="game-overlay" class="game-overlay" role="dialog" aria-labelledby="game-title">
               <h2 id="game-title"></h2>
               <p id="game-message"></p>
@@ -138,5 +186,15 @@
         </div>
       </section>
     </main>
+    <footer class="backup" aria-labelledby="backup-title">
+      <h2 id="backup-title">Your data</h2>
+      <p>Ratings, favorite dishes, and game scores live only in this browser. Save a backup file to keep them or move them to another phone.</p>
+      <div class="backup-buttons">
+        <button id="backup-save" type="button" class="link-button">Save backup</button>
+        <button id="backup-restore" type="button" class="link-button">Restore from file</button>
+        <input id="backup-file" type="file" accept="application/json,.json" hidden />
+      </div>
+      <p id="backup-status" class="budget-note" role="status"></p>
+    </footer>
   </body>
 </html>
