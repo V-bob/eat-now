@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#e84a27" />
+    <link rel="manifest" href="/eat-now/manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="/eat-now/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/eat-now/icons/apple-touch-icon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Eat Now" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>Eat Now</title>
+    <script type="module" crossorigin src="/eat-now/assets/index-nGreOfbz.js"></script>
+    <link rel="stylesheet" crossorigin href="/eat-now/assets/index-BNT8_d13.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="title-row">
+        <h1>Eat Now</h1>
+        <div class="city-picker">
+          <label class="visually-hidden" for="country-select">Country</label>
+          <select id="country-select" class="country-select"></select>
+          <label class="visually-hidden" for="city-search">City</label>
+          <input
+            id="city-search"
+            class="city-search"
+            type="search"
+            list="city-options"
+            placeholder="Any city"
+            autocomplete="off"
+            enterkeyhint="go"
+          />
+          <datalist id="city-options"></datalist>
+        </div>
+      </div>
+      <p id="city-hint" class="budget-note is-error" role="status"></p>
+      <nav class="view-tabs" role="tablist" aria-label="View">
+        <button type="button" role="tab" id="tab-eat" class="view-tab" aria-controls="eat-view">Eat now</button>
+        <button type="button" role="tab" id="tab-order" class="view-tab" aria-controls="order-view">Order</button>
+        <button type="button" role="tab" id="tab-play" class="view-tab" aria-controls="play-view">Play</button>
+      </nav>
+      <p id="location-status" class="location-status" role="status">Finding your location…</p>
+    </header>
+    <main>
+      <section class="filters" id="filters" aria-label="Filters">
+        <div class="filter-group">
+          <label class="filter-label" for="search-input">Search</label>
+          <input
+            id="search-input"
+            class="search-input"
+            type="search"
+            placeholder="Name or food, like “ramen”"
+            autocomplete="off"
+            enterkeyhint="search"
+          />
+        </div>
+        <div class="filter-group">
+          <span class="filter-label" id="genre-label">Food type</span>
+          <div id="genre-filters" class="chip-row" role="group" aria-labelledby="genre-label"></div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label" id="sort-label">Sort</span>
+          <div id="sort-filters" class="chip-row" role="group" aria-labelledby="sort-label"></div>
+          <p id="sort-note" class="budget-note" role="status"></p>
+        </div>
+        <div class="filter-group" id="budget-group">
+          <label class="filter-label" for="budget-input">Budget per meal</label>
+          <div class="budget-row">
+            <span class="budget-prefix" aria-hidden="true">$</span>
+            <input id="budget-input" class="budget-input" type="text" inputmode="decimal" placeholder="Any amount" autocomplete="off" aria-describedby="budget-note" />
+            <button id="budget-clear" type="button" class="link-button" hidden>Clear</button>
+          </div>
+          <p id="budget-note" class="budget-note" role="status"></p>
+        </div>
+        <div class="filter-group" id="diet-group">
+          <span class="filter-label" id="diet-label">Diet <small>(dining hall menus)</small></span>
+          <div id="diet-filters" class="chip-row" role="group" aria-labelledby="diet-label"></div>
+        </div>
+      </section>
+      <section id="eat-view" role="tabpanel" aria-labelledby="tab-eat">
+        <section id="directions-panel" aria-label="Directions" hidden></section>
+        <div id="map" class="map" aria-label="Map of places to eat"></div>
+        <ul id="place-list" class="place-list" aria-label="Places to eat, closest first"></ul>
+        <button type="button" id="show-more" class="link-button show-more" hidden>Show more places</button>
+      </section>
+      <section id="order-view" role="tabpanel" aria-labelledby="tab-order" hidden>
+        <p class="order-intro">Tap a delivery app to open this place there and order.</p>
+        <p id="order-unavailable" class="empty" hidden></p>
+        <ul id="order-list" class="place-list" aria-label="Places to order from"></ul>
+        <p class="source-note">
+          "Order on" links were checked against each store's address on Oct 13, 2026. "Find on" buttons search the
+          delivery app by name, so check the address. Dining halls are dine-in only.
+        </p>
+      </section>
+      <section id="play-view" role="tabpanel" aria-labelledby="tab-play" hidden>
+        <div id="arcade" class="arcade">
+          <div class="arcade-hero">
+            <h2>Arcade</h2>
+            <p>Something to do while you wait for your food.</p>
+          </div>
+          <ul id="game-cards" class="game-cards" aria-label="Games"></ul>
+          <section class="badges" aria-labelledby="badges-heading">
+            <h3 id="badges-heading">Badges <span id="badge-count" class="badge-count"></span></h3>
+            <ul id="badge-list" class="badge-list"></ul>
+          </section>
+        </div>
+        <div id="game-shell" class="game-shell" hidden>
+          <div class="game-topbar">
+            <button type="button" id="game-back" class="link-button">← Arcade</button>
+            <h2 id="game-name" class="game-name"></h2>
+            <button type="button" id="game-pause" class="link-button" hidden>Pause</button>
+          </div>
+          <div id="game-hud" class="game-hud" aria-live="off"></div>
+          <div id="game-stage" class="game-stage">
+            <canvas id="game-canvas" aria-label="Game board"></canvas>
+            <div id="memory-board" class="memory-board" hidden></div>
+            <div id="order-board" class="order-board" hidden></div>
+            <div id="recipe-board" class="recipe-board" hidden></div>
+            <div id="game-overlay" class="game-overlay" role="dialog" aria-labelledby="game-title">
+              <h2 id="game-title"></h2>
+              <p id="game-message"></p>
+              <ul id="game-new-badges" class="new-badges" hidden></ul>
+              <div class="overlay-buttons">
+                <button type="button" id="game-start" class="primary-button"></button>
+                <button type="button" id="game-secondary" class="link-button" hidden></button>
+              </div>
+            </div>
+          </div>
+          <div id="snake-pad" class="snake-pad" hidden aria-label="Steer the snake">
+            <button type="button" data-direction="up" aria-label="Up">▲</button>
+            <button type="button" data-direction="left" aria-label="Left">◀</button>
+            <button type="button" data-direction="down" aria-label="Down">▼</button>
+            <button type="button" data-direction="right" aria-label="Right">▶</button>
+          </div>
+          <p id="game-help" class="source-note"></p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

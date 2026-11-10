@@ -1,0 +1,47 @@
+name: Publish Eat Now
+
+on:
+  push:
+    branches: [main]
+  # Every morning at 11:15 UTC (5:15 AM in Champaign in winter, 6:15 AM in summer),
+  # so the dining menus always cover the next week.
+  schedule:
+    - cron: "15 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # fetch-menus deletes the old menu files before downloading new ones, so keep a copy
+      # and put it back if University Housing can't be reached.
+      - name: Refresh dining menus
+        run: |
+          cp -r public/menus "$RUNNER_TEMP/menus-backup"
+          if ! node scripts/fetch-menus.mjs; then
+            echo "Menu refresh failed; publishing the menus already in the site."
+            rm -rf public/menus
+            cp -r "$RUNNER_TEMP/menus-backup" public/menus
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: deployment
+        uses: actions/deploy-pages@v4
