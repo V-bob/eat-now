@@ -12,8 +12,9 @@
     <meta name="apple-mobile-web-app-title" content="Eat Now" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Eat Now</title>
-    <script type="module" crossorigin src="/eat-now/assets/index-COiNH_Ic.js"></script>
+    <script type="module" crossorigin src="/eat-now/assets/index-CV4aLTvf.js"></script>
     <link rel="stylesheet" crossorigin href="/eat-now/assets/index-CJRhLjSy.css">
+    <meta name="eat-now-build" content="563cd46 2026-11-13">
   </head>
   <body>
     <header class="app-header">
@@ -56,7 +57,9 @@
         <div id="hungry-actions" class="hungry-actions" hidden>
           <button id="hungry-open" type="button" class="primary-button">Open it</button>
           <button id="hungry-another" type="button" class="link-button">Pick another</button>
+          <span id="hungry-share"></span>
         </div>
+        <p id="hungry-share-status" class="budget-note" role="status"></p>
       </section>
     </header>
     <main>
@@ -66,6 +69,10 @@
         <button id="welcome-close" type="button" class="primary-button">Got it</button>
       </section>
       <section class="filters" id="filters" aria-label="Filters">
+        <div class="filter-group" id="recent-group" hidden>
+          <span class="filter-label" id="recent-label">Recently opened</span>
+          <div id="recent-places" class="chip-row" role="group" aria-labelledby="recent-label"></div>
+        </div>
         <div class="filter-group">
           <label class="filter-label" for="search-input">Search</label>
           <input
@@ -135,6 +142,7 @@
           <li><span class="legend-dot is-unknown" aria-hidden="true"></span>Hours unknown</li>
           <li><span class="legend-dot is-you" aria-hidden="true"></span>You</li>
         </ul>
+        <p id="list-summary" class="budget-note list-summary"></p>
         <ul id="place-list" class="place-list" aria-label="Places to eat, closest first"></ul>
         <button type="button" id="show-more" class="link-button show-more" hidden>Show more places</button>
       </section>
