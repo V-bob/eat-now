@@ -12,9 +12,9 @@
     <meta name="apple-mobile-web-app-title" content="Eat Now" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Eat Now</title>
-    <script type="module" crossorigin src="/eat-now/assets/index-CV4aLTvf.js"></script>
-    <link rel="stylesheet" crossorigin href="/eat-now/assets/index-CJRhLjSy.css">
-    <meta name="eat-now-build" content="563cd46 2026-11-13">
+    <script type="module" crossorigin src="/eat-now/assets/index-CMwddcIV.js"></script>
+    <link rel="stylesheet" crossorigin href="/eat-now/assets/index-DNODDbkk.css">
+    <meta name="eat-now-build" content="3c13757 2026-11-13">
   </head>
   <body>
     <header class="app-header">
@@ -70,7 +70,10 @@
       </section>
       <section class="filters" id="filters" aria-label="Filters">
         <div class="filter-group" id="recent-group" hidden>
-          <span class="filter-label" id="recent-label">Recently opened</span>
+          <div class="recent-head">
+            <span class="filter-label" id="recent-label">Recently opened</span>
+            <button id="recent-clear" type="button" class="link-button" aria-label="Clear recently opened places">Clear</button>
+          </div>
           <div id="recent-places" class="chip-row" role="group" aria-labelledby="recent-label"></div>
         </div>
         <div class="filter-group">
@@ -82,6 +85,7 @@
             placeholder="Name or food, like “ramen”"
             autocomplete="off"
             enterkeyhint="search"
+            aria-keyshortcuts="/"
           />
         </div>
         <div class="filter-group">
@@ -148,6 +152,7 @@
       </section>
       <section id="order-view" role="tabpanel" aria-labelledby="tab-order" hidden>
         <p class="order-intro">Tap a delivery app to open this place there and order.</p>
+        <p id="order-summary" class="budget-note list-summary"></p>
         <p id="order-unavailable" class="empty" hidden></p>
         <ul id="order-list" class="place-list" aria-label="Places to order from"></ul>
         <p class="source-note">
