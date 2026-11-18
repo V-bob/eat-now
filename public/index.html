@@ -12,9 +12,9 @@
     <meta name="apple-mobile-web-app-title" content="Eat Now" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Eat Now</title>
-    <script type="module" crossorigin src="/eat-now/assets/index-B8oYcW_5.js"></script>
-    <link rel="stylesheet" crossorigin href="/eat-now/assets/index-BGjlaR68.css">
-    <meta name="eat-now-build" content="2716e44 2026-11-16">
+    <script type="module" crossorigin src="/eat-now/assets/index-aiLeF2j4.js"></script>
+    <link rel="stylesheet" crossorigin href="/eat-now/assets/index-CwWUiLvk.css">
+    <meta name="eat-now-build" content="fa0a63a 2026-11-18">
   </head>
   <body>
     <header class="app-header">
@@ -112,6 +112,7 @@
             <input id="open-at-input" class="budget-input" type="time" aria-describedby="open-at-note" />
             <button id="open-at-clear" type="button" class="link-button" hidden>Now</button>
           </div>
+          <div id="open-at-presets" class="chip-row open-at-presets" role="group" aria-label="Open at a meal time"></div>
           <p id="open-at-note" class="budget-note" role="status"></p>
         </div>
         <div class="filter-group" id="open-only-group">
@@ -212,9 +213,22 @@
         <p id="share-app-status" class="budget-note" role="status"></p>
       </section>
     </main>
+    <dialog id="note-dialog" class="note-dialog" aria-labelledby="note-title">
+      <form id="note-form" method="dialog">
+        <h2 id="note-title">Note</h2>
+        <label for="note-input" class="note-hint">Only on this device, and in your backup file.</label>
+        <textarea id="note-input" rows="5" maxlength="500" placeholder="What to order, what to skip, cash only…"></textarea>
+        <p id="note-count" class="budget-note" aria-live="polite"></p>
+        <div class="note-actions">
+          <button id="note-save" type="submit" class="primary-button">Save</button>
+          <button id="note-cancel" type="button" class="link-button">Cancel</button>
+          <button id="note-delete" type="button" class="link-button">Delete note</button>
+        </div>
+      </form>
+    </dialog>
     <footer class="backup" aria-labelledby="backup-title">
       <h2 id="backup-title">Your data</h2>
-      <p>Ratings, favorite dishes, and game scores live only in this browser. Save a backup file to keep them or move them to another phone.</p>
+      <p>Ratings, notes, favorite dishes, and game scores live only in this browser. Save a backup file to keep them or move them to another phone.</p>
       <div class="backup-buttons">
         <button id="backup-save" type="button" class="link-button">Save backup</button>
         <button id="backup-restore" type="button" class="link-button">Restore from file</button>
