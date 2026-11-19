@@ -22,12 +22,15 @@
           // Storage blocked: follow the phone.
         }
         var phoneDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (saved === "dark" || (saved !== "light" && phoneDark)) document.documentElement.classList.add("dark");
+        if (saved === "dark" || (saved !== "light" && phoneDark)) {
+          document.documentElement.classList.add("dark");
+          document.querySelector('meta[name="theme-color"]').setAttribute("content", "#14161a"); // BAR_COLORS.dark
+        }
       })();
     </script>
-    <script type="module" crossorigin src="/eat-now/assets/index-BCS6c0DO.js"></script>
+    <script type="module" crossorigin src="/eat-now/assets/index-DhwZGIeE.js"></script>
     <link rel="stylesheet" crossorigin href="/eat-now/assets/index-Aghwlq3J.css">
-    <meta name="eat-now-build" content="2f635ce 2026-11-18">
+    <meta name="eat-now-build" content="0ae1115 2026-11-18">
   </head>
   <body>
     <header class="app-header">
@@ -271,6 +274,10 @@
         <summary id="ratings-title">Your ratings</summary>
         <ul id="ratings-list" class="notes-list"></ul>
         <p id="ratings-elsewhere" class="budget-note"></p>
+        <div id="ratings-share" class="notes-share">
+          <span id="ratings-share-button"></span>
+          <p id="ratings-share-status" class="budget-note" role="status"></p>
+        </div>
       </details>
       <details id="starred-group" class="notes-group" hidden>
         <summary id="starred-title">Your favorite dishes</summary>
