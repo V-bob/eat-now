@@ -12,9 +12,9 @@
     <meta name="apple-mobile-web-app-title" content="Eat Now" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Eat Now</title>
-    <script type="module" crossorigin src="/eat-now/assets/index-JmcEQAUo.js"></script>
+    <script type="module" crossorigin src="/eat-now/assets/index-Dtslyr6g.js"></script>
     <link rel="stylesheet" crossorigin href="/eat-now/assets/index-E9nL4yaq.css">
-    <meta name="eat-now-build" content="c8f63bb 2026-11-18">
+    <meta name="eat-now-build" content="d4c541c 2026-11-18">
   </head>
   <body>
     <header class="app-header">
@@ -80,6 +80,9 @@
             <button id="recent-clear" type="button" class="link-button" aria-label="Clear recently opened places">Clear</button>
           </div>
           <div id="recent-places" class="chip-row" role="group" aria-labelledby="recent-label"></div>
+          <p id="recent-cleared" class="note-deleted" role="status" hidden>
+            Cleared. <button id="recent-undo" type="button" class="link-button" aria-label="Undo clearing recently opened places">Undo</button>
+          </p>
         </div>
         <div class="filter-group">
           <label class="filter-label" for="search-input">Search</label>
@@ -241,6 +244,7 @@
       <h2 id="backup-title">Your data</h2>
       <p>Ratings, notes, favorite dishes, and game scores live only in this browser. Save a backup file to keep them or move them to another phone.</p>
       <p id="saved-summary" class="budget-note"></p>
+      <p id="last-backup" class="budget-note" hidden></p>
       <details id="notes-group" class="notes-group" hidden>
         <summary id="notes-title">Your notes</summary>
         <ul id="notes-list" class="notes-list"></ul>
